@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'web_app.wsgi.application'
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/user/dashboard/'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

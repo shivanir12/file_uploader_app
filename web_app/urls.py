@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from web_app import views
 
 urlpatterns = [
+    url(r'^$', views.login_redirect, name='login_redirect'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include('user_file_uploader.urls')),
+    url(r'^user/', include('user_file_uploader.urls')),
 ]
