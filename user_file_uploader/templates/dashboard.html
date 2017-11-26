@@ -1,14 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
+    <div class="container jumbotron">
         <div>
-            <h3>You are on your Dashboard</h3>
+            <h3>Hello {{ user.username }}</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="container">
+            <h4>Please choose a file to upload</h4>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="myfile">
+                <input type="submit" value="Upload">
+            </form>
         </div>
 
-        <div>
-            <p>Name: {{ user.username }}</p>
-            <p>City: {{ user.userprofile.city }}</p>
+        {% if not files %}
+            <p class="container">There are no uploaded files.</p>
+        {% else %}
+        <div class="container">
+            <h4>My Files</h4>
+            <div>
+                {% for file in files %}
+                <p>
+                    <a href="{{ file.file.url }}">{{ file.file_name }}</a>
+                </p>
+                {% endfor %}
+            </div>
         </div>
+        {% endif %}
     </div>
 {% endblock %}

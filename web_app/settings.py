@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.media',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -71,6 +72,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'web_app.wsgi.application'
 LOGIN_REDIRECT_URL = '/user/dashboard/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
