@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+    <h3>Search Users</h3>
+    <form id="search-form" method="get" action="">
+        <input type="text" id="search-text"/>
+        <input class="btn btn-default" type="submit" value="Submit" />
+    </form>
+    <br>
+    <ul  id="result-list"  class="list-group">
+    </ul>
+</div>
+{% endblock %}

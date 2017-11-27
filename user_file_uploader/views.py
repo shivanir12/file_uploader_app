@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -34,3 +34,18 @@ def get_user_uploaded_files(user_profile):
 
 def get_user_profile(username):
     return User.objects.get(username=username).userprofile
+
+
+def search(request):
+    search_val = request.GET.get('search', None)
+    print search_val
+
+    if search_val is not None:
+        users = User.objects.filter(username__icontains=search_val)
+        user_names = []
+        for user in users:
+            user_names.append(user.username)
+
+        return JsonResponse({ 'result' : user_names })
+    else:
+        return render(request, 'search.html')
