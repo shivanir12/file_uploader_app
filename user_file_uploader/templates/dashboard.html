@@ -1,34 +1,60 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container jumbotron">
-        <div>
-            <h3>Hello {{ user.username }}</h3>
-        </div>
-    </div>
-    <div class="container">
-        <div class="container">
-            <h4>Please choose a file to upload</h4>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="file" name="myfile">
-                <input type="submit" value="Upload">
-            </form>
-        </div>
-
-        {% if not files %}
-            <p class="container">There are no uploaded files.</p>
-        {% else %}
-        <div class="container">
-            <h4>My Files</h4>
+    <div class="container main">
+        <div class="container jumbotron header">
             <div>
-                {% for file in files %}
-                <p>
-                    <a href="{{ file.file.url }}">{{ file.file_name }}</a>
-                </p>
-                {% endfor %}
+                <h3>Hello {{ user.username }}</h3>
+                <input id="user_name" type="hidden" value="{{ user.username }}">
             </div>
         </div>
-        {% endif %}
+        <hr>
+            <div class="container">
+                <h6>Please choose a file to upload</h6>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input id="input_file" type="file" name="myfile">
+                    <button id="file_upload_btn" class="btn btn-secondary" type="submit" disabled>Upload</button>
+                </form>
+            </div>
+            <hr>
+            {% if not files %}
+            <p class="container">There are no uploaded files.</p>
+            {% else %}
+            <div class="container">
+                <h4>My Files</h4>
+                <table>
+                    {% for file in files %}
+                    <tr>
+                        <td><a href="{{ file.file.url }}">{{ file.file_name }}</a></td>
+                        <td><a href="#" class="share" data-file-id="{{ file.id }}">Share</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+            {% if shared_files|length > 0 %}
+            <div class="container">
+                <h4>Shared files</h4>
+                <table>
+                    {% for file in shared_files %}
+                    <tr>
+                        <td><a href="{{ file.file.url }}">{{ file.file_name }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+        <div id="user-list-container">
+            <div id="user-list-title">
+
+            </div>
+            <div>
+                <select class="user-list-values" name="users" id="user-list">
+                </select>
+                <button id="file-share-btn" class="btn" hidden>Share File</button>
+                <div id="file-share-response"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -18,6 +18,14 @@ class File(models.Model):
     def __str__(self):
         return self.file_name
 
+class UserSharedFiles(models.Model):
+    file_id = models.IntegerField()
+    requested_user_id = models.IntegerField()
+    shared_user_id = models.IntegerField()
+
+    def __str__(self):
+        return str(self.file_id) +' '+ str(self.requested_user_id) +' '+ str(self.shared_user_id)
+
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
